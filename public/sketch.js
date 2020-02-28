@@ -1,7 +1,9 @@
 var mode = 0;
 
 var imgSrcFileName = "fire.jpg";
-var imgSrc;            // source image  
+var imgSrc;    
+var imgMask = "mask.png";  
+var mask;      // source image  
 var imgSrcPixels = []; // packed RGB of source image
 var imgPixels = [];    // packed RGB of sorted image
 
@@ -27,26 +29,16 @@ socket.on('mysocket', function(data) {
 function preload() 
 {
 	imgSrc = loadImage( imgSrcFileName );
+
 }
 
 
 function setup() 
 {
-	createCanvas( imgSrc.width, imgSrc.height );
- pixelDensity(1);
-  cursor( HAND );
-  
-//   console.log(imgSrc.height);
-
-//   paramsDiv = createDiv('...');
-//   paramsDiv.style("position", "absolute");
-//   paramsDiv.style("width", "100%");
-//   paramsDiv.style("bottom", 0);
-//   paramsDiv.style("font-family", "Verdana");
-//   paramsDiv.style("font-size", 12);
-//   paramsDiv.style("color", "#fff");
-//   paramsDiv.style("text-shadow", "1px 1px 0 #000");
-//   paramsDiv.style("text-align", "center");
+   var myCanvas = createCanvas( imgSrc.width, imgSrc.height );
+   myCanvas.parent("p5div")
+   pixelDensity(1);
+   cursor( HAND );
 
 	imgSrc.loadPixels();
 	for (var i = 0; i < 4*(imgSrc.width*imgSrc.height); i+=4) {
@@ -138,11 +130,11 @@ function updateParams()
     //     input = 0 ;
     // }
     // if (mode === 0) {
-		blackValue = int(map(parseInt(sensor1), 0, 4000, -16777216, 0));
+		blackValue = int(map(parseInt(sensor1), 500, 4000, -16777216, 0));
 	// // } else if (mode == 1) {
-		brightnessValue = int(map(parseInt(sensor1), 0, 4000, 0, 255));
+		brightnessValue = int(map(parseInt(sensor1), 500, 4000, 0, 255));
 	// } else if (mode == 2) {
-		whiteValue = int(map(parseInt(sensor1), 0, 4000, -16777216, 0));
+		whiteValue = int(map(parseInt(sensor1), 500, 4000, -16777216, 0));
 	// }
 
 
@@ -173,43 +165,6 @@ function sortRow()
 	// where to stop sorting
 	var xend = 0;
 
-	// while (xend < width - 1) {
-	// 	switch (mode) {
-	// 		case 0:
-	// 			x = getFirstNotBlackX(x, y);
-	// 			xend = getNextBlackX(x, y);
-	// 			break;
-	// 		case 1:
-	// 			x = getFirstBrightX(x, y);
-	// 			xend = getNextDarkX(x, y);
-	// 			break;
-	// 		case 2:
-	// 			x = getFirstNotWhiteX(x, y);
-	// 			xend = getNextWhiteX(x, y);
-	// 			break;
-	// 		default:
-	// 			break;
-	// 	}
-
-	// 	if (x < 0) break;
-
-	// 	var sortLength = xend - x;
-
-	// 	var unsorted = [];
-	// 	var sorted = [];
-
-	// 	for (var i = 0; i < sortLength; i++) {
-	// 		unsorted[i] = imgPixels[x + i + iRow];
-	// 	}
-
-	// 	sorted = sort(unsorted);
-
-	// 	for (var i = 0; i < sortLength; i++) {
-	// 		imgPixels[x + i + iRow] = sorted[i];
-	// 	}
-
-	// 	x = xend + 1;
-	// }
 }
 
 

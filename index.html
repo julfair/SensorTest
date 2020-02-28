@@ -11,10 +11,28 @@
     <script src="libraries/p5.sound.js" type="text/javascript"></script>
 
     <script src="sketch.js" type="text/javascript"></script>
+    <style>
+        #p5div{
+            width:1024px;
+            height:800px;
+        }
+        #mask{
+            width:1024px;
+            height:800px;
+        }
+        body {background-color: black;}
+    </style>
+    
 </head>
 
 <body>
-
+<div id="p5div"></div>
+<div id="mask"><img src="mask.png"></div>
+<script src="maptastic.min.js"></script>
+<script>
+    Maptastic("p5div");
+    Maptastic("mask");
+</script>
 </body>
 
 </html>

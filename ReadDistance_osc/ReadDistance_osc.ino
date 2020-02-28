@@ -30,7 +30,7 @@ char ssid[] = "SFAI";          // your network SSID (name)
 char pass[] = "";                    // your network password
 
 WiFiUDP Udp;                                // A UDP instance to let us send and receive packets over UDP
-const IPAddress outIp(10, 10, 20, 124);     // remote IP of your computer
+const IPAddress outIp(10, 10, 21, 71);     // remote IP of your computer
 const unsigned int outPort = 8080;          // remote port to receive OSC
 const unsigned int localPort = 8888;        // local port to listen for OSC packets (actually not used for sending)
 
