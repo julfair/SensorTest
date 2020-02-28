@@ -1,6 +1,5 @@
-//import serialport module
-var serialPort = require("serialport");
-var Readline = serialPort.parsers.Readline;
+// import osc
+var osc = require('node-osc');
 
 //import express 
 var express = require('express');
@@ -11,16 +10,6 @@ var app = express();
 var server = app.listen(3000);
 var io = require('socket.io')(server);
 
-//set parameters for the serialport
-var serialPort = new serialPort("/dev/cu.usbmodem14101", {
-    baudRate: 115200
-  });
-
-
-//the readline parser will delimit the data on a newline
-var parser = new Readline();
-serialPort.pipe(parser);
-
 //expose the local public folder for inluding files js, css etc..
 app.use(express.static('public'));
 
@@ -29,17 +18,10 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/start', function(req, res) {
-  res.sendFile(__dirname + '/1.html');
-});
+var oscServer = new osc.Server(8080, '0.0.0.0');
 
-//send a message when the serialport connects successfully
-serialPort.on("open", function() {
-    console.log("Communication is on!");
-  });
-  
-//when data is recieved log it to the console
-parser.on("data", function(data) {
-    console.log("data received: " + data);
-    io.sockets.emit('mysocket', data);
+oscServer.on("message", function(msg, rinfo) {
+  console.log("OSC message:");
+  console.log(msg);
+  io.sockets.emit('mysocket', msg);
 });

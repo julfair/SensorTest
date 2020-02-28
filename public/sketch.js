@@ -17,17 +17,10 @@ var paramsDiv;
 var socket = io.connect(window.location.origin);
 let sensor1, input;
 socket.on('mysocket', function(data) {
-    // console.log(data);
-    // incoming = data.split(',');
-    // x = map(data, 0, 1023, 0, width);
+	console.log(data[1]);
 
-    sensor1 = data;
-    // console.log(data);
-    
-    // x = 100;
-    // y = map(incoming[1], 0, 1023, 0, height);
-    // b = incoming[2];
-    // console.log(incoming);
+    sensor1 = data[1];
+
 });
 
 
@@ -131,27 +124,28 @@ function updateParams()
 	// 	whiteValue = int(map(mouseX, 0, width - 1, -16777216, 0));
     // }
     
-    var interval = setInterval(function() {
-        let i = 1;
-        return i+=10;
-      }, 100);
+    // var interval = setInterval(function() {
+    //     let i = 1;
+    //     return i+=10;
+    //   }, 100);
 
       
 
-    if(sensor1 < 100){
-        input = interval;
-    }
-    else if (sensor1 > 100 ){
-        input = 0 ;
-    }
+    // if(sensor1 < 2000){
+    //     input = interval;
+    // }
+    // else if (sensor1 > 2000 ){
+    //     input = 0 ;
+    // }
     // if (mode === 0) {
-		blackValue = int(map(parseInt(input), 0, width - 1, -16777216, 0));
+		blackValue = int(map(parseInt(sensor1), 0, 4000, -16777216, 0));
 	// // } else if (mode == 1) {
-		brightnessValue = int(map(parseInt(input), 0, width - 1, 0, 255));
+		brightnessValue = int(map(parseInt(sensor1), 0, 4000, 0, 255));
 	// } else if (mode == 2) {
-		whiteValue = int(map(parseInt(input), 0, width - 1, -16777216, 0));
+		whiteValue = int(map(parseInt(sensor1), 0, 4000, -16777216, 0));
 	// }
-   console.log(sensor1);
+
+
   var params = "";
 	if (mode === 0) {
 		params = "mode: 0 - blackValue: " + blackValue;
